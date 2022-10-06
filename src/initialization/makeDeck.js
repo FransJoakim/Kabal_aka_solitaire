@@ -7,7 +7,6 @@ const suites = [
 
 const makeCard = (suite, value) => {
   let rank;
-
   if (value === 1) {
     rank = "ace";
   } else if (value === 11) {
@@ -17,9 +16,8 @@ const makeCard = (suite, value) => {
   } else if (value === 13) {
     rank = "king";
   } else {
-    rank = value;
+    rank = value.toString();
   }
-
   return {
     value,
     rank,
@@ -33,23 +31,21 @@ const makeCard = (suite, value) => {
 
 const makeDeck = () => {
   const deck = [];
-
   for (let i = 1; i <= 13; i++) {
     suites.forEach((suite) => {
       deck.push(makeCard(suite, i));
     });
   }
-
   return deck;
 };
 
-const newDeck = makeDeck();
-
-const randomizeDeck = () => {
-  newDeck.forEach((card) => (card.deckOrder = Math.random()));
-  newDeck.sort((a, b) => a.deckOrder - b.deckOrder);
-  newDeck.forEach((card) => delete card.deckOrder);
-  return newDeck;
+const randomizeDeck = (deck) => {
+  deck.forEach((card) => (card.deckOrder = Math.random()));
+  deck.sort((a, b) => a.deckOrder - b.deckOrder);
+  deck.forEach((card) => delete card.deckOrder);
+  return deck;
 };
 
-export const randomizedDeck = randomizeDeck();
+export const deck = randomizeDeck(makeDeck());
+
+export const cardNames = deck.map((card) => card.name);

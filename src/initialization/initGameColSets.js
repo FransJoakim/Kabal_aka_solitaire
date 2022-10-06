@@ -1,10 +1,10 @@
-import { randomizedDeck } from "./makeDeck";
+import { deck } from "./makeDeck";
 
 const tableauArrays = [];
 const tableauSets = [];
 
 for (let i = 1; i <= 7; i++) {
-  const tableau = randomizedDeck.splice(-i);
+  const tableau = deck.splice(-i);
   tableauArrays.push(tableau);
 }
 
@@ -19,13 +19,10 @@ const nestCards = (obj, subObj, set, baseObj) => {
 };
 
 tableauArrays.forEach((set) => {
-  const baseObj = {
-    name: "empty",
-    turned: false,
-  };
+  const baseObj = set.shift();
   const nestedSet = nestCards(baseObj, set.shift(), set, baseObj);
   tableauSets.push(nestedSet);
 });
 
 export const tableaus = tableauSets;
-export const remainingDeck = randomizedDeck;
+export const remainingDeck = deck;
