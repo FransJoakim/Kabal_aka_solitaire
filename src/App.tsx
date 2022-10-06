@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { tableaus, remainingDeck } from "./initialization/initGameColSets";
+import { CardSet } from "./features/tableaus/CardSet";
+import { Stock } from "./features/stockPiles/Stock";
+import { Waste } from "./features/stockPiles/Waste";
+import { Tableau } from "./features/tableaus/Tableau";
 
 function App() {
+  const [stockPile, setStockPile] = useState({
+    stock: remainingDeck,
+    waste: [],
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: "flex" }}>
+      {/* <div>
+        <Stock stockPile={stockPile} setStockPile={setStockPile} />
+        <Waste stockPile={stockPile} setStockPile={setStockPile} />
+      </div> */}
+
+      <div className="gameColumns">
+        {[1, 2, 3, 4, 5, 6, 7].map((initialCardNr) => {
+          return <Tableau id={initialCardNr} key={initialCardNr} />;
+        })}
+      </div>
     </div>
   );
 }
