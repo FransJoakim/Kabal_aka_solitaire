@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { atom, atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
-import { deck, cardNames } from "./initialization/makeDeck";
+import { deck } from "./initialization/makeDeck";
 import { tableaus } from "./initialization/initGameColSets";
 import { Tableau } from "./features/tableaus/Tableau";
 import { Stock } from "./features/stockPiles/Stock";
 import { Waste } from "./features/stockPiles/Waste";
-
-const cardsNames = atom<string[]>({
-  key: "cards",
-  default: [],
-  effects: [({ setSelf }) => setSelf(cardNames)],
-});
 
 function App() {
   return (

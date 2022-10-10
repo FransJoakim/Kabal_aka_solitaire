@@ -1,9 +1,9 @@
 type Card = {
-  value: number;
-  rank: string;
-  suite: string;
-  color: string;
+  value?: number;
+  rank?: string;
+  suite?: string;
+  color?: string;
   name: string;
   subsidiary: null | string | Card;
-  turned: boolean;
+  turned?: boolean;
 };

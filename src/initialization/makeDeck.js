@@ -48,4 +48,4 @@ const randomizeDeck = (deck) => {
 
 export const deck = randomizeDeck(makeDeck());
 
-export const cardNames = deck.map((card) => card.name);
+// export const cardNames = deck.map((card) => card.name);

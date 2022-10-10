@@ -1,27 +1,15 @@
-import { useEffect, useState } from "react";
-import { atomFamily, useRecoilState, useRecoilCallback } from "recoil";
-import { cardNames } from "../../initialization/makeDeck";
-import { tableaus } from "../../initialization/initGameColSets";
+import { useEffect } from "react";
+import { atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
 import { Card } from "./Card";
 
-export const tableauAtom = atomFamily<Card | undefined, number>({
-  key: "tableau",
-  default: undefined,
-  effects: (id: number) => [
-    ({ setSelf, onSet, node }) => {
-      const { subsidiary } = tableaus[id];
-      setSelf({
-        ...subsidiary,
-        subsidiary: null,
-      });
-    },
-  ],
-});
+const defaultValue = {
+  name: "",
+  subsidiary: null,
+};
 
-export const cardAtom = atomFamily({
+export const cardAtom = atomFamily<Card, string>({
   key: "card",
-  default: {},
-  effects: (cardName) => [({ setSelf }) => {}],
+  default: defaultValue,
 });
 
 export const Tableau = ({
@@ -31,19 +19,17 @@ export const Tableau = ({
   id: number;
   tableauSet: any;
 }) => {
-  const [baseCard] = useRecoilState(tableauAtom(id));
-
   const nestAtom = useRecoilCallback(({ set }) => (card: Card) => {
     set(cardAtom(card.name), card);
   });
 
   const loopDown = (card: any) => {
+    const copy = {
+      ...card,
+      subsidiary: card.subsidiary ? card.subsidiary.name : null,
+    };
+    nestAtom(copy);
     if (card.subsidiary !== null) {
-      const copy = {
-        ...card,
-        subsidiary: card.subsidiary.name,
-      };
-      nestAtom(copy);
       loopDown(card.subsidiary);
     }
   };
@@ -57,16 +43,31 @@ export const Tableau = ({
       <img
         className="cardImg"
         src={`./PNG-cards/empty.png`}
-        key={`Tableau__${id}`}
+        key={`tableau__${id}`}
         style={{
           height: "200px",
           marginBottom: `-53px`,
           // ref={drop}
-          // marginTop: "-150px",
           // border: canDrop ? "3px solid green" : "",
         }}
       />
-      {baseCard && <Card name={baseCard.name} key={baseCard.name} />}
+      <CardColumn id={id} tableauSet={tableauSet} key={id} />
     </div>
+  );
+};
+
+const CardColumn = ({ id, tableauSet }: { id: number; tableauSet: any }) => {
+  const firstCard = useRecoilValue(cardAtom(`tableau__${id}`));
+
+  return (
+    <>
+      {firstCard.subsidiary && (
+        <Card
+          name={tableauSet.subsidiary.name}
+          parentName={`tableau__${id}`}
+          key={tableauSet.name}
+        />
+      )}
+    </>
   );
 };

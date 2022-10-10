@@ -18,8 +18,10 @@ const nestCards = (obj, subObj, set, baseObj) => {
   return baseObj;
 };
 
-tableauArrays.forEach((set) => {
-  const baseObj = set.shift();
+tableauArrays.forEach((set, index) => {
+  const baseObj = {
+    name: `tableau__${index}`,
+  };
   const nestedSet = nestCards(baseObj, set.shift(), set, baseObj);
   tableauSets.push(nestedSet);
 });

@@ -1,37 +1,60 @@
-import {
-  selectorFamily,
-  atomFamily,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
-import { tableauAtom, cardAtom } from "./Tableau";
-import { deck } from "../../initialization/makeDeck";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useDrag, useDrop } from "react-dnd";
+import { cardAtom } from "./Tableau";
 
-const cardSelector = selectorFamily<Card, string>({
-  key: "cardSelector",
-  get:
-    (name) =>
-    //@ts-ignore
-    ({ get }) => {
-      return get(cardAtom(name));
+interface DnD_Interface {
+  movedCard: string;
+  parentName: string;
+}
+
+export const Card = ({
+  name,
+  parentName,
+}: {
+  name: string;
+  parentName: string;
+}) => {
+  const [card, setCard] = useRecoilState(cardAtom(name));
+  const [parentCard, setParent] = useRecoilState(cardAtom(parentName));
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "card",
+    item: {
+      movedCard: name,
+      parentName,
     },
-});
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
-export const Card = ({ name }: { name: string }) => {
-  const card = useRecoilValue(cardSelector(name));
-  //console.log(card);
+  // parentName is supposed to point to the parent of the moved card, and needed to be fetched within here... not at the top
+  const moveCard = (movedCard: string, parentName: string) => {
+    console.log(parentCard);
+    setParent((parent) => ({ ...parent, subsidiary: card.name }));
+    setCard({ ...card, subsidiary: movedCard });
+  };
+
+  const [{ canDrop }, drop] = useDrop(() => ({
+    accept: "card",
+    canDrop: () => (card.subsidiary ? false : true),
+    drop: (item: DnD_Interface) => moveCard(item.movedCard, item.parentName),
+    collect: (monitor) => ({
+      canDrop: !!monitor.canDrop(),
+    }),
+  }));
 
   return (
-    <div>
+    <div ref={drag}>
       <img
-        // ref={drop}
+        ref={drop}
         className="cardImg"
         src={`./PNG-cards/${card.turned ? "backside" : card.name}.png`}
         // key={card.name + "-IMG"}
         style={{
           height: "200px",
           marginTop: "-150px",
-          // border: canDrop ? "3px solid green" : "",
+          border: canDrop ? "3px solid green" : "",
           // display: isDragging ? "none" : "",
         }}
       />
@@ -39,7 +62,7 @@ export const Card = ({ name }: { name: string }) => {
         //@ts-ignore
         card.subsidiary && (
           //@ts-ignore
-          <Card name={card.subsidiary} key={card.name} />
+          <Card name={card.subsidiary} parentName={card.name} key={card.name} />
         )
       }
     </div>
