@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
-import { Card } from "./Card";
+import { CardSet } from "./CardSet";
 
 const defaultValue = {
   name: "",
   subsidiary: null,
+  value: null,
+  color: null,
+  suite: null,
 };
 
 export const cardAtom = atomFamily<Card, string>({
@@ -47,8 +50,6 @@ export const Tableau = ({
         style={{
           height: "200px",
           marginBottom: `-53px`,
-          // ref={drop}
-          // border: canDrop ? "3px solid green" : "",
         }}
       />
       <CardColumn id={id} tableauSet={tableauSet} key={id} />
@@ -62,7 +63,7 @@ const CardColumn = ({ id, tableauSet }: { id: number; tableauSet: any }) => {
   return (
     <>
       {firstCard.subsidiary && (
-        <Card
+        <CardSet
           name={tableauSet.subsidiary.name}
           parentName={`tableau__${id}`}
           key={tableauSet.name}

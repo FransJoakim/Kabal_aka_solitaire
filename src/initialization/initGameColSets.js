@@ -21,6 +21,9 @@ const nestCards = (obj, subObj, set, baseObj) => {
 tableauArrays.forEach((set, index) => {
   const baseObj = {
     name: `tableau__${index}`,
+    value: null,
+    color: null,
+    suite: null,
   };
   const nestedSet = nestCards(baseObj, set.shift(), set, baseObj);
   tableauSets.push(nestedSet);
