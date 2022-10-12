@@ -9,7 +9,5 @@ type Card = {
   deckOrder?: number;
 };
 
-type Stock = string[];
-
-type Hand = string[];
+type Hand = Card[];
 type Waste = Hand[];

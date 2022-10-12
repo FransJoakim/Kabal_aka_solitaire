@@ -30,7 +30,7 @@ const makeCard = (suite: Suite, value: number) => {
     color: suite.color,
     name: `${rank}_of_${suite.suite}`,
     subsidiary: null,
-    turned: false,
+    turned: true,
   };
 };
 

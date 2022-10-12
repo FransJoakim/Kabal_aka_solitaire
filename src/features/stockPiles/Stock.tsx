@@ -8,16 +8,11 @@ export const Stock = () => {
   const [waste, setWaste] = useRecoilState(wasteState);
 
   const setAtom = useRecoilCallback(({ set }) => (card: Card) => {
-    set(cardAtom(card.name), card);
+    set(cardAtom(card.name), { ...card, turned: false });
   });
 
   useEffect(() => {
-    const cardNames: string[] = [];
-    remainingDeck.forEach((card: Card) => {
-      cardNames.push(card.name);
-      setAtom(card);
-    });
-    setStock(cardNames);
+    remainingDeck.forEach((card: Card) => setAtom(card));
   }, []);
 
   const pickCardsFromStock = () => {
@@ -39,18 +34,20 @@ export const Stock = () => {
         margin: "1rem",
       }}
       onClick={pickCardsFromStock}
+      draggable={false}
     >
-      {stock.map((card: string, index: number) => (
+      {stock.map((card: Card, index: number) => (
         <img
           className="cardImg"
           src={"./PNG-cards/backside.png"}
+          draggable={false}
           key={index}
           style={{
             marginLeft: `${-index * 0.4}px`,
             marginTop: `${-index * 0.6}px`,
             position: "absolute",
             border: "0.1px solid gray",
-            borderRadius: "28px",
+            borderRadius: "0.7rem",
             width: "150px",
             height: "200px",
           }}

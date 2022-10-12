@@ -1,4 +1,5 @@
 import { atom, atomFamily } from "recoil";
+import { remainingDeck } from "./init";
 
 const defaultValue = {
   name: "",
@@ -13,9 +14,9 @@ export const cardAtom = atomFamily<Card, string>({
   default: defaultValue,
 });
 
-export const stockState = atom<Stock>({
+export const stockState = atom<Card[]>({
   key: "stock",
-  default: [],
+  default: remainingDeck,
 });
 
 export const wasteState = atom<Waste>({
