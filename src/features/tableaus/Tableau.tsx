@@ -1,19 +1,7 @@
 import { useEffect } from "react";
-import { atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
+import { useRecoilValue, useRecoilCallback } from "recoil";
+import { cardAtom } from "../../game/state";
 import { CardSet } from "./CardSet";
-
-const defaultValue = {
-  name: "",
-  subsidiary: null,
-  value: null,
-  color: null,
-  suite: null,
-};
-
-export const cardAtom = atomFamily<Card, string>({
-  key: "card",
-  default: defaultValue,
-});
 
 export const Tableau = ({
   id,

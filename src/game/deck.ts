@@ -1,3 +1,8 @@
+interface Suite {
+  suite: string;
+  color: string;
+}
+
 const suites = [
   { suite: "spades", color: "black" },
   { suite: "clubs", color: "black" },
@@ -5,7 +10,7 @@ const suites = [
   { suite: "diamonds", color: "red" },
 ];
 
-const makeCard = (suite, value) => {
+const makeCard = (suite: Suite, value: number) => {
   let rank;
   if (value === 1) {
     rank = "ace";
@@ -30,7 +35,7 @@ const makeCard = (suite, value) => {
 };
 
 const makeDeck = () => {
-  const deck = [];
+  const deck: Card[] = [];
   for (let i = 1; i <= 13; i++) {
     suites.forEach((suite) => {
       deck.push(makeCard(suite, i));
@@ -39,13 +44,12 @@ const makeDeck = () => {
   return deck;
 };
 
-const randomizeDeck = (deck) => {
+const randomizeDeck = (deck: Card[]) => {
   deck.forEach((card) => (card.deckOrder = Math.random()));
+  //@ts-ignore
   deck.sort((a, b) => a.deckOrder - b.deckOrder);
   deck.forEach((card) => delete card.deckOrder);
   return deck;
 };
 
 export const deck = randomizeDeck(makeDeck());
-
-// export const cardNames = deck.map((card) => card.name);

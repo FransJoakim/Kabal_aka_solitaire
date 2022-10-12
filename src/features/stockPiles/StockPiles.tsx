@@ -1,4 +1,4 @@
-import { remainingDeck } from "../../initialization/initGameColSets";
+import { remainingDeck } from "../../game/init";
 import { Stock } from "./Stock";
 import { Waste } from "./Waste";
 

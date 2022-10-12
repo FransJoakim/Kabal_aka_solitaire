@@ -1,16 +1,17 @@
-import { deck } from "./makeDeck";
+import { deck } from "./deck";
 
 const tableauArrays = [];
-const tableauSets = [];
+const tableauSets: Card[] = [];
 
 for (let i = 1; i <= 7; i++) {
   const tableau = deck.splice(-i);
   tableauArrays.push(tableau);
 }
 
-const nestCards = (obj, subObj, set, baseObj) => {
+const nestCards = (obj: Card, subObj: Card, set: Card[], baseObj: Card) => {
   if (subObj) {
     obj.subsidiary = subObj;
+    //@ts-ignore
     nestCards(subObj, set.shift(), set, baseObj);
   } else {
     obj.turned = false;
@@ -25,6 +26,7 @@ tableauArrays.forEach((set, index) => {
     color: null,
     suite: null,
   };
+  //@ts-ignore
   const nestedSet = nestCards(baseObj, set.shift(), set, baseObj);
   tableauSets.push(nestedSet);
 });

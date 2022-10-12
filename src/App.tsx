@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { atom, atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
-import { tableaus } from "./initialization/initGameColSets";
+import { tableaus } from "./game/init";
 import { Tableau } from "./features/tableaus/Tableau";
-import { StockPiles } from "./features/stockPiles/StockPiles";
+import { Stock } from "./features/stockPiles/Stock";
+import { Waste } from "./features/stockPiles/Waste";
 
 function App() {
   return (
     <div className="App" style={{ display: "flex", width: "100%" }}>
-      <StockPiles />
+      <div className="stockPiles">
+        <Stock />
+        <Waste />
+      </div>
 
       <div className="gameColumns" style={{ display: "flex", width: "100%" }}>
         {tableaus.map((tableau, index) => {

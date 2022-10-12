@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState, useRecoilCallback } from "recoil";
 import { useDrop } from "react-dnd";
-import { cardAtom } from "./Tableau";
+import { cardAtom } from "../../game/state";
 import { Card } from "./Card";
 
 interface DnD_Interface {

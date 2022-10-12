@@ -1,7 +1,9 @@
-import React from "react";
+import { wasteState, stockState } from "../../game/state";
+import { useRecoilState } from "recoil";
 
-export const Waste = ({ stockPile, setStockPile }) => {
-  const waste = stockPile.waste;
+export const Waste = () => {
+  const [stock, setStock] = useRecoilState(stockState);
+  const [waste, setWaste] = useRecoilState(wasteState);
 
   const pickCardFromWaste = () => {
     if (waste[waste.length - 1].length > 0) {
@@ -11,9 +13,8 @@ export const Waste = ({ stockPile, setStockPile }) => {
       waste[waste.length - 1].pop();
     }
 
-    setStockPile({
-      ...stockPile,
-    });
+    setWaste(waste);
+    setStock(stock);
   };
 
   return (
