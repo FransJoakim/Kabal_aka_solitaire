@@ -3,12 +3,6 @@ import { useDrop } from "react-dnd";
 import { useRecoilState, useRecoilValue, useRecoilCallback } from "recoil";
 import { cardAtom } from "../../game/state";
 import { wasteState } from "../../game/state";
-import { CardSet } from "../tableaus/CardSet";
-
-interface DnD_Interface {
-  movedCard: Card;
-  parentName: string;
-}
 
 export const Foundation = ({ id }: { id: number }) => {
   const [waste, setWaste] = useRecoilState(wasteState);
@@ -17,7 +11,6 @@ export const Foundation = ({ id }: { id: number }) => {
 
   const nameofTopCard = foundation[foundation.length - 1];
   const topCard = useRecoilValue(cardAtom(nameofTopCard));
-  console.log(topCard);
 
   const [{ canDrop }, drop] = useDrop(
     () => ({

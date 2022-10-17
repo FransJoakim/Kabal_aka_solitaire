@@ -31,15 +31,13 @@ export const Card = ({
     }
   }
 
-  const imgSrc = `./PNG-cards/${card.turned ? "backside" : card.name}.png`;
-
   return (
     <img
       ref={card.turned ? null : drag}
       draggable={card.turned ? false : true}
       className="cardImg"
       onClick={turnCard}
-      src={imgSrc}
+      src={`./PNG-cards/${card.turned ? "backside" : card.name}.png`}
       style={{
         height: "200px",
         marginTop: "-150px",

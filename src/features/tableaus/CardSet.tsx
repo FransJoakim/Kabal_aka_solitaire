@@ -4,11 +4,6 @@ import { cardAtom } from "../../game/state";
 import { Card } from "./Card";
 import { wasteState } from "../../game/state";
 
-interface DnD_Interface {
-  movedCard: Card;
-  parentName: string;
-}
-
 export const CardSet = ({
   name,
   parentName,

@@ -11,3 +11,8 @@ type Card = {
 
 type Hand = Card[];
 type Waste = Hand[];
+
+interface DnD_Interface {
+  movedCard: Card;
+  parentName: string;
+}
