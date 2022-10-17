@@ -2,9 +2,9 @@ import { atom, atomFamily } from "recoil";
 import { remainingDeck } from "./init";
 
 const defaultValue = {
-  name: "",
+  name: "empty",
   subsidiary: null,
-  value: null,
+  value: 0,
   color: null,
   suite: null,
 };

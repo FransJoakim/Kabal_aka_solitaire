@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import { atom, atomFamily, useRecoilValue, useRecoilCallback } from "recoil";
 import { tableaus } from "./game/init";
 import { Tableau } from "./features/tableaus/Tableau";
 import { Stock } from "./features/stockPiles/Stock";
 import { Waste } from "./features/stockPiles/Waste";
+import { Foundation } from "./features/foundations/Foundation";
 
 function App() {
   return (
@@ -17,6 +16,12 @@ function App() {
         {tableaus.map((tableau, index) => {
           return <Tableau id={index} tableauSet={tableau} key={index} />;
         })}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {[1, 2, 3, 4].map((id) => (
+          <Foundation id={id} />
+        ))}
       </div>
     </div>
   );
