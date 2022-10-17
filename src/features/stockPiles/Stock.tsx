@@ -16,14 +16,26 @@ export const Stock = () => {
   }, []);
 
   const pickCardsFromStock = () => {
-    const tempStock = [...stock];
+    if (stock.length > 0) {
+      const tempStock = [...stock];
+      const tempWaste = [...waste];
+
+      const hand = tempStock.splice(-3);
+      tempWaste.push(hand);
+
+      setWaste(tempWaste);
+      setStock(tempStock);
+    }
+  };
+
+  const restartStockPile = () => {
+    const newStock: Card[] = [];
     const tempWaste = [...waste];
-
-    const hand = tempStock.splice(-3);
-    tempWaste.push(hand);
-
-    setWaste(tempWaste);
-    setStock(tempStock);
+    tempWaste
+      .reverse()
+      .forEach((set) => set.forEach((card) => newStock.push(card)));
+    setWaste([]);
+    setStock(newStock);
   };
 
   return (
@@ -36,23 +48,38 @@ export const Stock = () => {
       onClick={pickCardsFromStock}
       draggable={false}
     >
-      {stock.map((card: Card, index: number) => (
+      {stock.length > 0 ? (
+        stock.map((card: Card, index: number) => (
+          <img
+            className="cardImg"
+            src={"./PNG-cards/backside.png"}
+            draggable={false}
+            key={index}
+            style={{
+              marginLeft: `${-index * 0.4}px`,
+              marginTop: `${-index * 0.6}px`,
+              position: "absolute",
+              border: "0.1px solid gray",
+              borderRadius: "0.7rem",
+              width: "150px",
+              height: "200px",
+            }}
+          />
+        ))
+      ) : (
         <img
           className="cardImg"
-          src={"./PNG-cards/backside.png"}
+          src={"./PNG-cards/empty.png"}
           draggable={false}
-          key={index}
+          onClick={restartStockPile}
           style={{
-            marginLeft: `${-index * 0.4}px`,
-            marginTop: `${-index * 0.6}px`,
-            position: "absolute",
             border: "0.1px solid gray",
             borderRadius: "0.7rem",
             width: "150px",
             height: "200px",
           }}
         />
-      ))}
+      )}
     </div>
   );
 };

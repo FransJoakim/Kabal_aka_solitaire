@@ -60,7 +60,7 @@ function Card({
 
   return (
     <img
-      ref={drag}
+      ref={isTopCard ? drag : null}
       draggable={isTopCard ? true : false}
       className="cardImg"
       src={`./PNG-cards/${card.name}.png`}

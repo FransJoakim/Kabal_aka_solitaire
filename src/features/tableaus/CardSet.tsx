@@ -1,4 +1,4 @@
-import { useRecoilState, useSetRecoilState, useRecoilCallback } from "recoil";
+import { useRecoilState, useRecoilCallback } from "recoil";
 import { useDrop } from "react-dnd";
 import { cardAtom } from "../../game/state";
 import { Card } from "./Card";
@@ -55,7 +55,6 @@ export const CardSet = ({
     () => ({
       accept: "card",
       canDrop: (item) => {
-        // console.log(item.movedCard);
         if (item.movedCard.value === null) return false;
         return card.subsidiary
           ? false
@@ -76,11 +75,7 @@ export const CardSet = ({
   );
 
   return (
-    <div
-      ref={drop}
-      draggable={false}
-      style={{ border: canDrop ? "5px solid green" : "" }}
-    >
+    <div ref={drop} style={{ border: canDrop ? "5px solid green" : "" }}>
       <Card card={card} parentName={parentName} key={"card_" + card.name} />
       {card.subsidiary && (
         <CardSet

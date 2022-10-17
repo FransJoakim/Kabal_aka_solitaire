@@ -31,17 +31,19 @@ export const Card = ({
     }
   }
 
+  const imgSrc = `./PNG-cards/${card.turned ? "backside" : card.name}.png`;
+
   return (
     <img
-      ref={drag}
-      draggable={false}
+      ref={card.turned ? null : drag}
+      draggable={card.turned ? false : true}
       className="cardImg"
       onClick={turnCard}
-      src={`./PNG-cards/${card.turned ? "backside" : card.name}.png`}
+      src={imgSrc}
       style={{
         height: "200px",
         marginTop: "-150px",
-        // display: isDragging ? "none" : "",
+        display: isDragging ? "none" : "block",
       }}
     />
   );
