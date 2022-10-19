@@ -19,7 +19,7 @@ export const stockState = atom<Card[]>({
   default: remainingDeck,
 });
 
-export const wasteState = atom<Waste>({
+export const wasteState = atom<Card[]>({
   key: "waste",
   default: [],
 });

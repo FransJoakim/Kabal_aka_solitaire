@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { cardAtom, stockState, wasteState } from "../../game/state";
-import { remainingDeck } from "../../game/init";
+import { cardAtom, stockState, wasteState } from "../game/state";
+import { remainingDeck } from "../game/init";
 import { useRecoilState, useRecoilCallback } from "recoil";
 
 export const Stock = () => {
@@ -21,9 +21,7 @@ export const Stock = () => {
       const tempWaste = [...waste];
 
       const hand = tempStock.splice(-3);
-      tempWaste.push(hand);
-
-      setWaste(tempWaste);
+      setWaste([...tempWaste, ...hand]);
       setStock(tempStock);
     }
   };
@@ -31,9 +29,7 @@ export const Stock = () => {
   const restartStockPile = () => {
     const newStock: Card[] = [];
     const tempWaste = [...waste];
-    tempWaste
-      .reverse()
-      .forEach((set) => set.forEach((card) => newStock.push(card)));
+    tempWaste.reverse().forEach((card) => newStock.push(card));
     setWaste([]);
     setStock(newStock);
   };
@@ -61,7 +57,7 @@ export const Stock = () => {
               position: "absolute",
               border: "0.1px solid gray",
               borderRadius: "0.7rem",
-              width: "150px",
+              width: "138px",
               height: "200px",
             }}
           />
@@ -75,7 +71,7 @@ export const Stock = () => {
           style={{
             border: "0.1px solid gray",
             borderRadius: "0.7rem",
-            width: "150px",
+            width: "135px",
             height: "200px",
           }}
         />

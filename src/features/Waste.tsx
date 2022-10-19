@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { useDrag } from "react-dnd";
-import { wasteState } from "../../game/state";
+import { wasteState } from "../game/state";
 
 export const Waste = () => {
   const waste = useRecoilValue(wasteState);
@@ -11,25 +11,19 @@ export const Waste = () => {
         margin: "1rem",
       }}
     >
-      {waste.map((hand, handIndex, wasteArray) => {
+      {waste.map((card: any, index: number, array: any) => {
+        const isTopCard = index + 1 === array.length;
+        const handIndex = index / 3;
+        const cardIndex = index % 3;
         return (
-          <div key={"hand" + handIndex}>
-            {hand.map((card, cardIndex, handArray) => {
-              const isTopCard =
-                handIndex + 1 === wasteArray.length &&
-                cardIndex + 1 === handArray.length;
-              // if (isTopCard) console.log("top card:", card);
-              return (
-                <Card
-                  card={card}
-                  key={card.name}
-                  isTopCard={isTopCard}
-                  handIndex={handIndex}
-                  cardIndex={cardIndex}
-                />
-              );
-            })}
-          </div>
+          <Card
+            card={card}
+            isTopCard={isTopCard}
+            index={index}
+            handIndex={handIndex}
+            cardIndex={cardIndex}
+            key={index}
+          />
         );
       })}
     </div>
@@ -39,11 +33,13 @@ export const Waste = () => {
 function Card({
   card,
   isTopCard,
+  index,
   handIndex,
   cardIndex,
 }: {
   card: Card;
   isTopCard: boolean;
+  index: number;
   handIndex: number;
   cardIndex: number;
 }) {
@@ -64,15 +60,15 @@ function Card({
       draggable={isTopCard ? true : false}
       className="cardImg"
       src={`./PNG-cards/${card.name}.png`}
-      key={cardIndex}
+      key={index}
       style={{
         marginLeft: `${cardIndex * 25}px`,
-        marginTop: `${-(handIndex * 0.5 + cardIndex * 1.5)}px`,
+        marginTop: `${-(handIndex * 0.6 + cardIndex * 1.5)}px`,
         position: "absolute",
         border: "0.1px solid gray",
         borderRadius: "8px",
-        width: "150px",
-        height: "180px",
+        width: "140px",
+        height: "190px",
         opacity: isDragging ? "0" : "100",
       }}
     />

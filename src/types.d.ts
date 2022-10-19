@@ -9,9 +9,6 @@ type Card = {
   deckOrder?: number;
 };
 
-type Hand = Card[];
-type Waste = Hand[];
-
 interface DnD_Interface {
   movedCard: Card;
   parentName: string;
