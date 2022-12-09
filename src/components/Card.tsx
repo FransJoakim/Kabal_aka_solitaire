@@ -50,8 +50,8 @@ export const Card = ({
           context === "foundation"
             ? `-${200 + index / 8}px`
             : card.turned
-            ? `-${165 - index}px`
-            : `-${155 - index}px`,
+            ? `-${173 - index}px`
+            : `-${163 - index}px`,
         display: isDragging ? "none" : "block",
         zIndex: 1,
         marginLeft:

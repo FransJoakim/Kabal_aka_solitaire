@@ -60,7 +60,7 @@ export const CardSet = ({
   );
 
   return (
-    <div ref={drop} style={{ border: canDrop ? "solid 2px green" : "" }}>
+    <div ref={drop}>
       <Card
         card={card}
         parentName={parentName}
