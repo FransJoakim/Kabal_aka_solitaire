@@ -13,6 +13,12 @@ export const Stock = () => {
 
   useEffect(() => {
     remainingDeck.forEach((card: Card) => setAtom(card));
+    setTimeout(() => {
+      remainingDeck.forEach((card) => {
+        const img = new Image();
+        img.src = `./PNG-cards/${card.name}.png`;
+      });
+    }, 10);
   }, []);
 
   const pickCardsFromStock = () => {
